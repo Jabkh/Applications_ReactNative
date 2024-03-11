@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
-import Navbar from './Navbar';
+import Header from './Header';
 
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
-
+// Fonction pour ajouter une nouvelle tâche
   const handleAddTodo = text => {
     setTodos([...todos, { id: Date.now(), text }]);
   };
-
+ // Fonction pour supprimer une tâche
   const handleDeleteTodo = id => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
-
+// Fonction pour éditer une tâche
   const handleEditTodo = (id, newText) => {
     setTodos(
       todos.map(todo => {
@@ -28,7 +28,7 @@ const TodoApp = () => {
 
   return (
     <View style={styles.container}>
-      <Navbar />
+      <Header />
       <TodoForm onAdd={handleAddTodo} />
       <TodoList
         todos={todos}
