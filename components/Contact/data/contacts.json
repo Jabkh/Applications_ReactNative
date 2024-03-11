@@ -1,0 +1,21 @@
+[
+    {
+      "id": "1",
+      "name": "Toto Doe",
+      "phone": "0612344567",
+      "adresse": "1 Rue de la chocolaterie\n59000 Lille"
+    },
+    {
+      "id": "2",
+      "name": "Tata Doe",
+      "phone": "0612344567",
+      "adresse": "2 Rue de la boulangerie\n59000 Lille"
+    },
+    {
+      "id": "3",
+      "name": "Titi Doe",
+      "phone": "0612344567",
+      "adresse": "3 Rue de la confiserie\n59650 Villeneuve d'ascq"
+    }
+  ]
+  
