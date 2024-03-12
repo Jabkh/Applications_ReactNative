@@ -8,8 +8,8 @@ const GroceryApp = () => {
   const [items, setItems] = useState([]);
 
   // Fonction pour ajouter un nouvel article
-  const handleAddItem = name => {
-    setItems([...items, { id: Date.now(), name }]);
+  const handleAddItem = (name, quantity) => {
+    setItems([...items, { id: Date.now(), name, quantity }]);
   };
 
   // Fonction pour supprimer un article
@@ -18,11 +18,11 @@ const GroceryApp = () => {
   };
 
   // Fonction pour éditer un article
-  const handleEditItem = (id, newName) => {
+  const handleEditItem = (id, newName, newQuantity) => {
     setItems(
       items.map(item => {
         if (item.id === id) {
-          return { ...item, name: newName };
+          return { ...item, name: newName, quantity: newQuantity };
         }
         return item;
       }),

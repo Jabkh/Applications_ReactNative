@@ -5,29 +5,65 @@ const GroceryList = ({ items, onDelete, onEdit }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [editedItemName, setEditedItemName] = useState('');
+  const [editedItemQuantity, setEditedItemQuantity] = useState('');
+  const [editedItemIndex, setEditedItemIndex] = useState(null); // Nouvel état pour l'index de l'article édité
 
   // Fonction pour ouvrir la modal d'édition d'un article
-  const openEditModal = (id, name) => {
+  const openEditModal = (id, name, quantity, index) => { // Ajouter l'index comme paramètre
     setModalVisible(true);
     setSelectedItemId(id);
     setEditedItemName(name);
+    setEditedItemQuantity(quantity);
+    setEditedItemIndex(index); // Mettre à jour l'index de l'article édité
   };
 
   // Fonction pour gérer l'édition d'un article
   const handleEdit = () => {
-    onEdit(selectedItemId, editedItemName);
+    onEdit(selectedItemId, editedItemName, editedItemQuantity); // Passer la quantité à la fonction onEdit
     setModalVisible(false);
   };
 
+  // Fonction pour augmenter la quantité spécifique à l'article
+  const increaseQuantity = () => {
+    const updatedItems = [...items];
+    updatedItems[editedItemIndex].quantity = String(parseInt(editedItemQuantity) + 1);
+    setEditedItemQuantity(String(parseInt(editedItemQuantity) + 1));
+    setItems(updatedItems);
+  };
+
+  // Fonction pour diminuer la quantité spécifique à l'article
+  const decreaseQuantity = () => {
+    if (parseInt(editedItemQuantity) > 0) {
+      const updatedItems = [...items];
+      updatedItems[editedItemIndex].quantity = String(parseInt(editedItemQuantity) - 1);
+      setEditedItemQuantity(String(parseInt(editedItemQuantity) - 1));
+      setItems(updatedItems);
+    }
+  };
+
   // Fonction pour afficher chaque élément de la liste des articles
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item, index }) => (
     <View style={styles.item}>
       <Text style={styles.itemText}>{item.name}</Text>
+      <View style={styles.quantityContainer}>
+        <TouchableOpacity onPress={() => decreaseQuantity(index)} style={styles.quantityButton}>
+          <Text style={styles.buttonText}>-</Text>
+        </TouchableOpacity>
+        <TextInput
+          style={[styles.input, styles.quantityInput]}
+          value={item.quantity}
+          onChangeText={text => handleQuantityChange(text, index)}
+          keyboardType="numeric"
+        />
+        <TouchableOpacity onPress={() => increaseQuantity(index)} style={styles.quantityButton}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => onDelete(item.id)} style={[styles.button, styles.deleteButton]}>
           <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => openEditModal(item.id, item.name)} style={[styles.button, styles.editButton]}>
+        <TouchableOpacity onPress={() => openEditModal(item.id, item.name, item.quantity, index)} style={[styles.button, styles.editButton]}>
           <Text style={styles.buttonText}>Edit</Text>
         </TouchableOpacity>
       </View>
@@ -57,6 +93,21 @@ const GroceryList = ({ items, onDelete, onEdit }) => {
               value={editedItemName}
               onChangeText={setEditedItemName}
             />
+            <View style={styles.quantityContainer}>
+              <TouchableOpacity onPress={decreaseQuantity} style={styles.quantityButton}>
+                <Text style={styles.buttonText}>-</Text>
+              </TouchableOpacity>
+              <TextInput
+                style={[styles.input, styles.quantityInput]}
+                placeholder="Edit quantity"
+                value={editedItemQuantity}
+                onChangeText={setEditedItemQuantity}
+                keyboardType="numeric"
+              />
+              <TouchableOpacity onPress={increaseQuantity} style={styles.quantityButton}>
+                <Text style={styles.buttonText}>+</Text>
+              </TouchableOpacity>
+            </View>
             <View style={styles.buttonContainer}>
               <Button title="Cancel" onPress={() => setModalVisible(false)} color="#dc2f02" />
               <Button title="Save" onPress={handleEdit} color="#dc2f02" />
@@ -100,21 +151,14 @@ const styles = StyleSheet.create({
   itemText: {
     fontSize: 18,
   },
-  buttonContainer: {
+  quantityContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
-  button: {
+  quantityButton: {
     padding: 5,
     borderRadius: 5,
-    marginLeft: 5,
-  },
-  deleteButton: {
-    color: '#faf0ca',
-    backgroundColor: 'red',
-  },
-  editButton: {
-    color: '#faf0ca',
-    backgroundColor: 'orange',
+    backgroundColor: '#dc2f02',
   },
   buttonText: {
     color: '#fff',
@@ -128,6 +172,30 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
     fontSize: 20,
+  },
+  quantityInput: {
+    width: 60,
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  button: {
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  deleteButton: {
+    backgroundColor: 'red',
+  },
+  editButton: {
+    backgroundColor: 'orange',
+  },
+  listcontainer: {
+    backgroundColor: '#ee964b',
   },
   centeredView: {
     flex: 1,
@@ -150,9 +218,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  listcontainer: {
-    backgroundColor: '#ee964b',
-  }
 });
 
 export default GroceryList;

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, TouchableWithoutFeedback, Keyboard, Pressable, Text } from 'react-native';
+import { Keyboard, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, Pressable } from 'react-native';
 
 const GroceryForm = ({ onAdd }) => {
   const [name, setName] = useState('');
+  const [quantity, setQuantity] = useState('');
 
-  // Fonction pour ajouter un nouvel article
   const handleAdd = () => {
-    if (name.trim() !== '') { // Vérifie si le champ de saisie n'est pas vide
-      onAdd(name); // Appelle la fonction onAdd avec le nom de l'article
-      setName(''); // Réinitialise le champ de saisie
+    if (name.trim() !== '') {
+      onAdd(name, quantity);
+      setName('');
+      setQuantity('');
     }
   };
 
-  // Fonction pour masquer le clavier lorsque l'utilisateur appuie à l'extérieur du champ de saisie
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
@@ -20,7 +20,6 @@ const GroceryForm = ({ onAdd }) => {
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
       <View style={styles.container}>
-        {/* Champ de saisie pour l'ajout d'un article */}
         <TextInput
           style={styles.input}
           placeholder="Enter item"
@@ -28,17 +27,23 @@ const GroceryForm = ({ onAdd }) => {
           onChangeText={setName}
           numberOfLines={3}
         />
-        {/* Bouton d'ajout d'un article */}
+        <TextInput
+          style={styles.input}
+          placeholder="Enter quantity"
+          value={quantity}
+          onChangeText={setQuantity}
+          keyboardType="numeric"
+        />
         <Pressable
           onPress={handleAdd}
           style={({pressed}) => [
             {
-              backgroundColor: pressed ? '#dc2f02' : '#dc2f02', // Changement de couleur du bouton lorsqu'il est pressé
+              backgroundColor: pressed ? '#dc2f02' : '#dc2f02',
             },
             styles.wrapperCustom,
           ]}>
           {({pressed}) => (
-            <Text style={styles.textButton}>{pressed ? 'Added!' : 'Add Grocery'}</Text> // Texte du bouton qui change en fonction de l'état pressé ou non
+            <Text style={styles.textButton}>{pressed ? 'Added!' : 'Add Grocery'}</Text>
           )}
         </Pressable>
       </View>
@@ -55,10 +60,7 @@ const styles = StyleSheet.create({
     borderColor: '#f77f00',
     fontSize: 20,
     textAlign:'center',
-  },
-  addButton:{
-    backgroundColor: '#fff',
-    textAlign:'center',
+    marginBottom: 10,
   },
   wrapperCustom: {
     textAlign:'center',
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
   textButton:{
     textAlign:'center',
     fontWeight:'bold',
-    color:'#faf0ca'
+    color:'#faf0ca',
   },
 });
 
