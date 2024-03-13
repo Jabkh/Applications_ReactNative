@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TodoApp from './components/TodoApp/TodoApp';
 import ContactListModal from './components/Contact/ContactListModal';
 import GroceryApp from './components/Grocery/GroceryApp';
-import Calculator from './components/Calculatrice/Calculator';
+import CalculApp from './components/Calculatrice/CalculApp';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +15,7 @@ const App = () => {
         <Tab.Screen name="Todo" component={TodoApp} options={{ title: 'TodoList' }} />
         <Tab.Screen name="Grocery" component={GroceryApp} options={{ title: 'GroceryList' }} />
         <Tab.Screen name="Contact" component={ContactListModal} options={{ title: 'Contact' }} />
-        <Tab.Screen name="Calculator" component={Calculator} options={{ title: 'Calculatrice' }} />
+        <Tab.Screen name="Calculator" component={CalculApp} options={{ title: 'Calculatrice' }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
