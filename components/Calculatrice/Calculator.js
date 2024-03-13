@@ -46,10 +46,10 @@ const Calculator = () => {
       </View>
       <View style={styles.keyboardContainer}>
         <View style={styles.row}>
-          <Pressable onPress={() => handlePress('/')} style={styles.button1}><Text style={styles.buttonText}> / </Text></Pressable>
           <Pressable onPress={() => handlePress('AC')} style={styles.button1}><Text style={styles.buttonText}>AC</Text></Pressable>
           <Pressable onPress={() => handlePress('^')} style={styles.button1}><Text style={styles.buttonText}> ^ </Text></Pressable>
           <Pressable onPress={() => handlePress('%')} style={styles.button1}><Text style={styles.buttonText}> % </Text></Pressable>
+          <Pressable onPress={() => handlePress('/')} style={styles.button1}><Text style={styles.buttonText}> / </Text></Pressable>
         </View>
         <View style={styles.row}>
           <Pressable onPress={() => handlePress('7')} style={styles.button}><Text style={styles.buttonText}> 7 </Text></Pressable>
