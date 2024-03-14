@@ -10,8 +10,8 @@ const ContactListModal = () => {
 
     // Fonction pour naviguer vers les détails du contact
     const navigateToContactDetails = (contact) => {
-      setModalVisible(false); // Fermer la modal
-      navigation.navigate('ContactDetails', { contact }); // Naviguer vers les détails du contact
+      setModalVisible(false); // Ferme la modal
+      navigation.navigate('ContactDetails', { contact }); // Navigue vers les détails du contact
     };
 
     const renderItem = ({ item }) => (
