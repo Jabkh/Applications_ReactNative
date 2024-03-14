@@ -2,17 +2,31 @@
 import React, { useState } from 'react';
 import { Modal, Text, FlatList, TouchableOpacity, StyleSheet, View, Image } from 'react-native';
 import contacts from './data/contacts.json';
+import { useNavigation } from '@react-navigation/native';
 
 const ContactListModal = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation();
 
-  const renderItem = ({ item }) => (
-    <View style={styles.contactItem}>
-      <Text style={styles.contactName}>{item.name}</Text>
-      <Text style={styles.contactInfo}>Phone: {item.phone}</Text>
-      <Text style={styles.contactInfo}>Address: {item.adresse}</Text>
-    </View>
-  );
+    // Fonction pour naviguer vers les détails du contact
+    const navigateToContactDetails = (contact) => {
+      setModalVisible(false); // Fermer la modal
+      navigation.navigate('ContactDetails', { contact }); // Naviguer vers les détails du contact
+    };
+
+    const renderItem = ({ item }) => (
+      <TouchableOpacity onPress={() => navigateToContactDetails(item)}>
+        <View style={styles.contactItem}>
+          <Text style={styles.contactName}>{item.name}</Text>
+          <Text style={styles.contactInfo}>Phone: {item.phone}</Text>
+          <Text style={styles.contactInfo}>Address: {item.adresse}</Text>
+          {/* Bouton pour afficher les détails du contact */}
+          <TouchableOpacity onPress={() => navigateToContactDetails(item)}>
+            <Text style={styles.detailsButton}>View Details</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    );
 
   return (
     <View style={styles.container}>
@@ -104,6 +118,11 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginBottom: 20,
+  },
+  detailsButton: {
+    color: '#007bff',
+    textAlign: 'center',
+    marginTop: 10,
   },
 });
 

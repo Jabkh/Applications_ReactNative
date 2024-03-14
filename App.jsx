@@ -2,9 +2,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons'; // Importez Ionicons
-import FontAwesome from 'react-native-vector-icons/FontAwesome'; // Importez FontAwesome
-import Entypo from 'react-native-vector-icons/Entypo'; // Importez Entypo
+import FontAwesome from 'react-native-vector-icons/FontAwesome'; 
+import Entypo from 'react-native-vector-icons/Entypo';
 import TodoApp from './components/TodoApp/TodoApp';
 import ContactListModal from './components/Contact/ContactListModal';
 import GroceryApp from './components/Grocery/GroceryApp';
