@@ -30,7 +30,6 @@ const ContactListModal = () => {
 
   return (
     <View style={styles.container}>
-      {/* Logo React Native */}
       <Image
         style={styles.logo}
         source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
@@ -39,7 +38,6 @@ const ContactListModal = () => {
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Text style={styles.heading}>Open Contact List</Text>
       </TouchableOpacity>
-      {/* Modal */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -47,7 +45,6 @@ const ContactListModal = () => {
         onRequestClose={() => setModalVisible(false)}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            {/* Titre de la modal */}
             <Text style={styles.heading}>Contact List</Text>
             {/* Liste de contacts */}
             <FlatList
